@@ -3,6 +3,8 @@ require "standard/rake"
 
 RSpec::Core::RakeTask.new(:spec)
 
+Dir["./lib/*.rb"].each { |file| require file }
+
 task default: [:spec, "standard:fix"]
 
 desc "Elves carrying calories"
