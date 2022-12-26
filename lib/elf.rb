@@ -1,20 +1,3 @@
-data = <<~DATA
-  1000
-  2000
-  3000
-
-  4000
-
-  5000
-  6000
-
-  7000
-  8000
-  9000
-
-  10000
-DATA
-
 class Elf
   attr_accessor :index, :items
 
@@ -33,10 +16,3 @@ class Elf
     end
   end
 end
-
-elves = Elf.load(data)
-puts elves.max_by(&:calories).calories
-
-file_data = File.read("day01.txt")
-elves = Elf.load(file_data)
-puts elves.max_by(&:calories).calories
