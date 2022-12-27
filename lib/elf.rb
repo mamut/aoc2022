@@ -9,7 +9,7 @@ class Elf
   def calories = items.sum
 
   class << self
-    def load(data)
+    def parse(data)
       data.split("\n\n").map.with_index(1) do |group, index|
         new(index, group.split("\n").map(&:to_i))
       end

@@ -1,6 +1,6 @@
 RSpec.describe Elf do
   it "knows which elf carries the most calories" do
-    elves = Elf.load <<~DATA
+    elves = Elf.parse <<~DATA
       1000
       2000
       3000
