@@ -11,4 +11,5 @@ desc "Elves carrying calories"
 task :day01 do
   caravan = Caravan.parse File.read("data/day01.txt")
   puts caravan.most_calories
+  puts caravan.top3_calories
 end

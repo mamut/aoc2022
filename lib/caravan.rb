@@ -7,6 +7,10 @@ class Caravan
     @elves.last&.calories
   end
 
+  def top3_calories
+    @elves.last(3).sum(&:calories)
+  end
+
   class << self
     def parse(data)
       data.split("\n\n").map.with_index(1) do |group, index|
