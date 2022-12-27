@@ -9,6 +9,6 @@ task default: [:spec, "standard:fix"]
 
 desc "Elves carrying calories"
 task :day01 do
-  elves = Elf.parse File.read("data/day01.txt")
-  puts elves.max_by(&:calories).calories
+  caravan = Caravan.parse File.read("data/day01.txt")
+  puts caravan.most_calories
 end
