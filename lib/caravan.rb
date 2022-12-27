@@ -1,4 +1,8 @@
 class Caravan
+  Elf = Data.define(:index, :items) do
+    def calories = items.sum
+  end
+
   def initialize(elves)
     @elves = elves.sort_by(&:calories)
   end
