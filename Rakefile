@@ -17,5 +17,6 @@ end
 desc "Day 2: Rock Paper Scissors"
 task :day02 do
   guide = StrategyGuide.parse File.read("data/day02.txt")
+  puts guide.naive_points
   puts guide.points
 end

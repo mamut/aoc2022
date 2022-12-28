@@ -2,40 +2,94 @@
 
 class StrategyGuide
   Round = Data.define(:opponent, :player) do
+    def naive_points
+      points_from_shape(naive_player_shape) + points_from_outcome(naive_player_shape)
+    end
+
     def points
-      points_from_shape + points_from_outcome
+      points_from_shape(player_shape) + points_from_outcome(player_shape)
     end
 
     private
 
-    def points_from_shape
+    def opponent_shape
+      case opponent
+      when "A" # Rock
+        :rock
+      when "B" # Paper
+        :paper
+      when "C" # Scissors
+        :scissors
+      end
+    end
+
+    def naive_player_shape
       case player
       when "X" # Rock
-        1
+        :rock
       when "Y" # Paper
-        2
+        :paper
       when "Z" # Scissors
+        :scissors
+      end
+    end
+
+    def player_shape
+      case player
+      when "X" # loss
+        case opponent_shape
+        when :rock
+          :scissors
+        when :paper
+          :rock
+        when :scissors
+          :paper
+        end
+      when "Y" # draw
+        opponent_shape
+      when "Z" # win
+        case opponent_shape
+        when :rock
+          :paper
+        when :paper
+          :scissors
+        when :scissors
+          :rock
+        end
+      end
+    end
+
+    def points_from_shape(shape)
+      case shape
+      when :rock
+        1
+      when :paper
+        2
+      when :scissors
         3
       end
     end
 
-    def points_from_outcome
-      case opponent
-      when "A" # Rock
-        return 3 if player == "X"
-        (player == "Y") ? 6 : 0
-      when "B" # Paper
-        return 3 if player == "Y"
-        (player == "Z") ? 6 : 0
-      when "C" # Scissors
-        return 3 if player == "Z"
-        (player == "X") ? 6 : 0
+    def points_from_outcome(shape)
+      return 3 if opponent_shape == shape
+
+      case opponent_shape
+      when :rock
+        (shape == :paper) ? 6 : 0
+      when :paper
+        (shape == :scissors) ? 6 : 0
+      when :scissors
+        (shape == :rock) ? 6 : 0
       end
     end
   end
 
   def initialize(rounds)
     @rounds = rounds
+  end
+
+  def naive_points
+    @rounds.sum(&:naive_points)
   end
 
   def points
