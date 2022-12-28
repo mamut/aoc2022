@@ -20,3 +20,7 @@ task :day02 do
   puts guide.naive_points
   puts guide.points
 end
+
+desc "Day 3: Rucksack Reorganization"
+task :day03 do
+end
