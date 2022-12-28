@@ -15,71 +15,55 @@ class StrategyGuide
     def opponent_shape
       case opponent
       when "A" # Rock
-        :rock
+        RPS.rock
       when "B" # Paper
-        :paper
+        RPS.paper
       when "C" # Scissors
-        :scissors
+        RPS.scissors
       end
     end
 
     def naive_player_shape
       case player
       when "X" # Rock
-        :rock
+        RPS.rock
       when "Y" # Paper
-        :paper
+        RPS.paper
       when "Z" # Scissors
-        :scissors
+        RPS.scissors
       end
     end
 
     def player_shape
       case player
       when "X" # loss
-        case opponent_shape
-        when :rock
-          :scissors
-        when :paper
-          :rock
-        when :scissors
-          :paper
-        end
+        opponent_shape.beats
       when "Y" # draw
         opponent_shape
       when "Z" # win
-        case opponent_shape
-        when :rock
-          :paper
-        when :paper
-          :scissors
-        when :scissors
-          :rock
-        end
+        opponent_shape.beaten_by
       end
     end
 
     def points_from_shape(shape)
       case shape
-      when :rock
+      when RPS.rock
         1
-      when :paper
+      when RPS.paper
         2
-      when :scissors
+      when RPS.scissors
         3
       end
     end
 
     def points_from_outcome(shape)
-      return 3 if opponent_shape == shape
-
-      case opponent_shape
-      when :rock
-        (shape == :paper) ? 6 : 0
-      when :paper
-        (shape == :scissors) ? 6 : 0
-      when :scissors
-        (shape == :rock) ? 6 : 0
+      case shape.against?(opponent_shape)
+      when :win
+        6
+      when :draw
+        3
+      when :loss
+        0
       end
     end
   end
