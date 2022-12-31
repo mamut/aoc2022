@@ -23,4 +23,6 @@ end
 
 desc "Day 3: Rucksack Reorganization"
 task :day03 do
+  collection = Rucksack::Collection.from_string File.read("data/day03.txt")
+  puts collection.sum_of_duplicate_priorities
 end
